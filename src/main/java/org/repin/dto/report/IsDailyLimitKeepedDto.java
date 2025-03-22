@@ -1,4 +1,4 @@
-package org.repin.dto;
+package org.repin.dto.report;
 
 public class IsDailyLimitKeepedDto {
     Boolean isKeeped;

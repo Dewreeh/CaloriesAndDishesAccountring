@@ -22,8 +22,11 @@ public class MealIntake {
     private UUID userId;
 
     private LocalDate date;
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "dishes", columnDefinition = "jsonb")
-    private List<Dish> dishes; //В БД храню это в JSONB
 
+    public MealIntake(UUID userId, LocalDate date) {
+        this.userId = userId;
+        this.date = date;
+    }
+    public MealIntake() {
+    }
 }

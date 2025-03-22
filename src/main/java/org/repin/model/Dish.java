@@ -34,4 +34,8 @@ public class Dish {
         this.fats = fats;
         this.carbohydrates = carbohydrates;
     }
+
+    public Dish(){}
+
+
 }

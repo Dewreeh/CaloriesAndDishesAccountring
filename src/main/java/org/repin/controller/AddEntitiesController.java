@@ -1,12 +1,15 @@
 package org.repin.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.repin.dto.MealIntakeDto;
 import org.repin.dto.NewDishDto;
 import org.repin.dto.NewUserDto;
 import org.repin.model.Dish;
 import org.repin.model.MealIntake;
+import org.repin.model.MealIntakeDish;
 import org.repin.model.User;
 import org.repin.repository.DishRepository;
+import org.repin.repository.MealIntakeDishRepository;
 import org.repin.repository.MealIntakeRepository;
 import org.repin.repository.UserRepository;
 import org.repin.service.CaloriesService;
@@ -17,26 +20,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/add")
 @Slf4j
-public class MainController {
+public class AddEntitiesController {
     private final UserRepository userRepository;
     private final CaloriesService caloriesService;
     private final DishRepository dishRepository;
     private final MealIntakeRepository mealIntakeRepository;
+    private final MealIntakeDishRepository mealIntakeDishRepository;
     @Autowired
-    MainController(UserRepository userRepository,
+    AddEntitiesController(UserRepository userRepository,
                    CaloriesService caloriesService,
                    DishRepository dishRepository,
-                   MealIntakeRepository mealIntakeRepository){
+                   MealIntakeRepository mealIntakeRepository,
+                   MealIntakeDishRepository mealIntakeDishRepository){
         this.userRepository = userRepository;
         this.caloriesService = caloriesService;
         this.dishRepository = dishRepository;
         this.mealIntakeRepository = mealIntakeRepository;
+        this.mealIntakeDishRepository = mealIntakeDishRepository;
     }
 
-    @PostMapping("/add_user")
+    @PostMapping("/user")
     ResponseEntity<Object> addUser(@RequestBody NewUserDto dto){
         log.info("/add_user: {}", dto);
 
@@ -51,7 +60,7 @@ public class MainController {
         return ResponseEntity.ok().body(userRepository.save(user).getDailyCalories()); //возвращаем лимит калорий
     }
 
-    @PostMapping("/add_dish")
+    @PostMapping("/dish")
     ResponseEntity<Object> addDish(@RequestBody NewDishDto dto) {
         log.info("/add_dish: {}", dto);
 
@@ -66,14 +75,28 @@ public class MainController {
         return ResponseEntity.ok().body(dishRepository.save(dish));
     }
 
-    @PostMapping("/add_meal_intake")
-    ResponseEntity<Object> addMealIntake(@RequestBody MealIntake mealIntake){
-        log.info("/add_meal_intake: {}", mealIntake);
+    @PostMapping("/meal_intake")
+    ResponseEntity<Object> addMealIntake(@RequestBody MealIntakeDto dto) {
+        log.info("/add_meal_intake: {}", dto);
 
-        if(!userRepository.existsById(mealIntake.getUserId())){
+        if (!userRepository.existsById(dto.getUserId())) {
             return ResponseEntity.badRequest().body("Пользователь не найден");
         }
 
-        return ResponseEntity.ok().body(mealIntakeRepository.save(mealIntake));
+        final MealIntake mealIntake = mealIntakeRepository.save(new MealIntake(dto.getUserId(), dto.getDate()));
+
+        // Загружаем блюда по их ID
+        List<Dish> dishes = dishRepository.findAllById(dto.getDishes());
+
+        // Создаем связи между MealIntake и Dish
+        List<MealIntakeDish> intakeDishes = dishes.stream()
+                .map(dish -> new MealIntakeDish(mealIntake, dish))
+                .toList();
+
+        // Сохраняем их
+        mealIntakeDishRepository.saveAll(intakeDishes);
+
+        return ResponseEntity.ok().body(mealIntake);
     }
+
 }

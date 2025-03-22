@@ -12,11 +12,4 @@ public class NewDishDto {
     private BigDecimal fats;
     private BigDecimal carbohydrates;
 
-    public NewDishDto(String name, Integer calories, BigDecimal proteins, BigDecimal fats, BigDecimal carbohydrates) {
-        this.name = name;
-        this.calories = calories;
-        this.proteins = proteins;
-        this.fats = fats;
-        this.carbohydrates = carbohydrates;
-    }
 }

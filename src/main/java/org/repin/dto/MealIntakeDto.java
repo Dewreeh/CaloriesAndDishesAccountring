@@ -5,11 +5,12 @@ import org.repin.model.Dish;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class MealIntakeDto {
     private Long id;
-    private Long userId;
+    private UUID userId;
     private LocalDate date;
-    private List<Dish> dishes;
+    private List<UUID> dishes;
 }
