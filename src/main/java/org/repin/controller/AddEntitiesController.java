@@ -86,15 +86,16 @@ public class AddEntitiesController {
 
         final MealIntake mealIntake = mealIntakeRepository.save(new MealIntake(dto.getUserId(), dto.getDate()));
 
-        // Загружаем блюда по их ID
         List<Dish> dishes = dishRepository.findAllById(dto.getDishes());
 
-        // Создаем связи между MealIntake и Dish
+        if (dishes.size() != dto.getDishes().size()) {
+            return ResponseEntity.badRequest().body("Одно или несколько блюд не найдены");
+        }
+
         List<MealIntakeDish> intakeDishes = dishes.stream()
                 .map(dish -> new MealIntakeDish(mealIntake, dish))
                 .toList();
 
-        // Сохраняем их
         mealIntakeDishRepository.saveAll(intakeDishes);
 
         return ResponseEntity.ok().body(mealIntake);

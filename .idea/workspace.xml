@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abb2ae7-e64b-4f36-8a47-c21ec9aa7d28" name="Changes" comment="daily report added">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/GlobalExceptionHandler.java" afterDir="false" />
+    <list default="true" id="7abb2ae7-e64b-4f36-8a47-c21ec9aa7d28" name="Changes" comment="дневной отчет теперь с выбором конкретной даты, а не сегодняшней по умолчанию">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/controller/AddEntitiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/AddEntitiesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/controller/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/service/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/controller/ReportsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/ReportsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/MealIntakeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewMealIntakeDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewDishDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewDishDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewUserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewUserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/DailyReportDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/DailyReportDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/service/ReportsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/service/ReportsService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +79,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742671795588</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="дневной отчет теперь с выбором конкретной даты, а не сегодняшней по умолчанию">
+      <option name="closed" value="true" />
+      <created>1742673281501</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742673281501</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -102,6 +104,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="mid-result" />
     <MESSAGE value="daily report added" />
-    <option name="LAST_COMMIT_MESSAGE" value="daily report added" />
+    <MESSAGE value="дневной отчет теперь с выбором конкретной даты, а не сегодняшней по умолчанию" />
+    <option name="LAST_COMMIT_MESSAGE" value="дневной отчет теперь с выбором конкретной даты, а не сегодняшней по умолчанию" />
   </component>
 </project>

@@ -1,5 +1,6 @@
-package org.repin.controller;
+package org.repin.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.validation.ObjectError;
@@ -19,4 +20,6 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
         return ResponseEntity.badRequest().body(errorMessages);
     }
+
+
 }
