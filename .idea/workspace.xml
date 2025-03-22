@@ -4,31 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abb2ae7-e64b-4f36-8a47-c21ec9aa7d28" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/DailyReportDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/IsDailyLimitKeepedDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/MealIntakeDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewDishDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewUserDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/enums/Goals.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/model/Dish.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/model/MealIntake.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/repository/DishRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/repository/MealIntakeRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/service/CaloriesService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list default="true" id="7abb2ae7-e64b-4f36-8a47-c21ec9aa7d28" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,5 +59,16 @@
       <updated>1742567849470</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
