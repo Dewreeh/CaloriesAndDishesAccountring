@@ -1,5 +1,6 @@
 package org.repin.service;
 
+import net.bytebuddy.asm.Advice;
 import org.repin.dto.report.DailyReportDto;
 import org.repin.dto.report.MealIntakeReportDto;
 import org.repin.model.Dish;
@@ -40,17 +41,17 @@ public class ReportsService {
         this.mealIntakeDishRepository = mealIntakeDishRepository;
     }
 
-    public DailyReportDto getDailyReport(UUID userId){
+    public DailyReportDto getDailyReport(UUID userId, LocalDate date){
         DailyReportDto report = new DailyReportDto();
 
         //Все приёмы пищи пользователя за день
-        List<MealIntake> dailyMeals = getMealsForToday(userId);
+        List<MealIntake> dailyMeals = getMealsForToday(userId, date);
 
         List<MealIntakeReportDto> mealIntakeDtos = new ArrayList<>();
 
         int totalCalories = 0;
 
-        //проходим по всем приемам пищи, получаем блюда для каждого. Список приёмов с блюдами в них
+        //проходим по всем приемам пищи, получаем блюда для каждого. Формируем Список всех приёмов за день  с блюдами в них
         for(MealIntake meal: dailyMeals){
             List<Dish> dishes = getDishesByMeal(meal);
 
@@ -62,7 +63,7 @@ public class ReportsService {
         }
 
         //устанавливаем значения в итоговую дто
-        report.setDate(LocalDate.now());
+        report.setDate(date);
         report.setMealIntakes(mealIntakeDtos);
         report.setTotalCalories(totalCalories);
 
@@ -70,9 +71,9 @@ public class ReportsService {
     }
 
 
-    private List<MealIntake> getMealsForToday(UUID userId){
+    private List<MealIntake> getMealsForToday(UUID userId, LocalDate date){
         //Все приёмы пищи пользователя за день
-        return  mealIntakeRepository.findAllByUserIdAndDate(userId, LocalDate.now());
+        return mealIntakeRepository.findAllByUserIdAndDate(userId, date);
     }
 
     private List<Dish> getDishesByMeal(MealIntake mealIntake){

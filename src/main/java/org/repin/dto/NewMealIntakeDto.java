@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public class MealIntakeDto {
+public class NewMealIntakeDto {
     private Long id;
     private UUID userId;
     private LocalDate date;

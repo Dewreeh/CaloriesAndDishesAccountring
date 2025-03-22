@@ -4,21 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abb2ae7-e64b-4f36-8a47-c21ec9aa7d28" name="Changes" comment="mid-result">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/ReportsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/MealIntakeReportDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/model/MealIntakeDish.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/repository/MealIntakeDishRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/service/ReportsService.java" afterDir="false" />
+    <list default="true" id="7abb2ae7-e64b-4f36-8a47-c21ec9aa7d28" name="Changes" comment="daily report added">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/AddEntitiesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/DailyReportDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/DailyReportDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/IsDailyLimitKeepedDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/IsDailyLimitKeepedDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/MealIntakeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/MealIntakeDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/controller/AddEntitiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/AddEntitiesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/controller/ReportsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/ReportsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/MealIntakeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewMealIntakeDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewDishDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewDishDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/model/Dish.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/model/Dish.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/model/MealIntake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/model/MealIntake.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/repository/MealIntakeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/repository/MealIntakeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewUserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewUserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/DailyReportDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/DailyReportDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/service/ReportsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/service/ReportsService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +77,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742643440953</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="daily report added">
+      <option name="closed" value="true" />
+      <created>1742671795587</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1742671795588</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -97,6 +101,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="mid-result" />
-    <option name="LAST_COMMIT_MESSAGE" value="mid-result" />
+    <MESSAGE value="daily report added" />
+    <option name="LAST_COMMIT_MESSAGE" value="daily report added" />
   </component>
 </project>

@@ -1,7 +1,6 @@
 package org.repin.dto.report;
 
 import lombok.Data;
-import org.repin.dto.MealIntakeDto;
 import org.repin.model.Dish;
 import org.repin.model.MealIntake;
 import org.repin.model.MealIntakeDish;

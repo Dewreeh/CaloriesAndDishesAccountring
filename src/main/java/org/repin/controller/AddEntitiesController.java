@@ -1,8 +1,9 @@
 package org.repin.controller;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.repin.dto.MealIntakeDto;
 import org.repin.dto.NewDishDto;
+import org.repin.dto.NewMealIntakeDto;
 import org.repin.dto.NewUserDto;
 import org.repin.model.Dish;
 import org.repin.model.MealIntake;
@@ -46,7 +47,7 @@ public class AddEntitiesController {
     }
 
     @PostMapping("/user")
-    ResponseEntity<Object> addUser(@RequestBody NewUserDto dto){
+    ResponseEntity<Object> addUser(@RequestBody @Valid NewUserDto dto){
         log.info("/add_user: {}", dto);
 
         User user = new User(dto.getName(),
@@ -76,7 +77,7 @@ public class AddEntitiesController {
     }
 
     @PostMapping("/meal_intake")
-    ResponseEntity<Object> addMealIntake(@RequestBody MealIntakeDto dto) {
+    ResponseEntity<Object> addMealIntake(@RequestBody NewMealIntakeDto dto) {
         log.info("/add_meal_intake: {}", dto);
 
         if (!userRepository.existsById(dto.getUserId())) {

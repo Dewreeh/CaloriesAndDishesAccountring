@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @RestController
@@ -22,8 +23,9 @@ public class ReportsController {
         this.reportsService = reportsService;
     }
 
-    @GetMapping("/daily_report/{userId}")
-    ResponseEntity<Object> getDailyReport(@PathVariable(name = "userId") UUID userId){
-        return ResponseEntity.ok().body(reportsService.getDailyReport(userId));
+    @GetMapping("/daily_report/{userId}/{date}")
+    ResponseEntity<Object> getDailyReport(@PathVariable(name = "userId") UUID userId,
+                                          @PathVariable(name = "date") LocalDate date){
+        return ResponseEntity.ok().body(reportsService.getDailyReport(userId, date));
     }
 }
