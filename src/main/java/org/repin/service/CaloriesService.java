@@ -1,10 +1,12 @@
 package org.repin.service;
 
+import org.repin.dto.report.MealIntakeReportDto;
 import org.repin.enums.Goals;
 import org.repin.dto.NewUserDto;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class CaloriesService {
@@ -30,5 +32,11 @@ public class CaloriesService {
         }
 
         return dailyCalories.intValue();
+    }
+
+    public int calculateTotalCalories(List<MealIntakeReportDto> mealIntakeDtos) {
+        return mealIntakeDtos.stream()
+                .mapToInt(MealIntakeReportDto::getTotalCalories)
+                .sum();
     }
 }

@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abb2ae7-e64b-4f36-8a47-c21ec9aa7d28" name="Changes" comment="+немного валидации">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/NutritionHistoryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/repin/service/MealIntakeService.java" afterDir="false" />
+    <list default="true" id="7abb2ae7-e64b-4f36-8a47-c21ec9aa7d28" name="Changes" comment="daily report + is limit kept report + controller methods simplified">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/controller/AddEntitiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/AddEntitiesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/controller/ReportsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/controller/ReportsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/IsDailyLimitKeepedDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/IsDailyLimitKeptDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewMealIntakeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/NewMealIntakeDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/NutritionHistoryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/dto/report/NutritionHistoryDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/repository/MealIntakeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/repository/MealIntakeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/service/CaloriesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/service/CaloriesService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/service/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/service/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/repin/service/ReportsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/repin/service/ReportsService.java" afterDir="false" />
     </list>
@@ -100,7 +100,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742674625238</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="daily report + is limit kept report + controller methods simplified">
+      <option name="closed" value="true" />
+      <created>1742743187939</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742743187939</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,6 +127,7 @@
     <MESSAGE value="daily report added" />
     <MESSAGE value="дневной отчет теперь с выбором конкретной даты, а не сегодняшней по умолчанию" />
     <MESSAGE value="+немного валидации" />
-    <option name="LAST_COMMIT_MESSAGE" value="+немного валидации" />
+    <MESSAGE value="daily report + is limit kept report + controller methods simplified" />
+    <option name="LAST_COMMIT_MESSAGE" value="daily report + is limit kept report + controller methods simplified" />
   </component>
 </project>

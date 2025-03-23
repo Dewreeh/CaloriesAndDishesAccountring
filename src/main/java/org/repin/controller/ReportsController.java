@@ -1,11 +1,5 @@
 package org.repin.controller;
-
-import org.repin.model.User;
-import org.repin.repository.DishRepository;
-import org.repin.repository.MealIntakeDishRepository;
-import org.repin.repository.MealIntakeRepository;
 import org.repin.repository.UserRepository;
-import org.repin.service.CaloriesService;
 import org.repin.service.ReportsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,14 +22,14 @@ public class ReportsController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/daily_report/{userId}")
+    @GetMapping("/report/daily/{userId}")
     ResponseEntity<Object> getDailyReport(@PathVariable(name = "userId") UUID userId,
                                           @RequestParam(name = "date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date){
 
         return ResponseEntity.ok().body(reportsService.getDailyReport(userId, date));
     }
 
-    @GetMapping("/daily_report/is_limit_kept/{userId}")
+    @GetMapping("/report/is_limit_kept/{userId}")
     ResponseEntity<Object> isDailyLimitKept(@PathVariable(name = "userId") UUID userId,
                                           @RequestParam(name = "date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date){
         if (!userRepository.existsById(userId)) {
@@ -43,5 +37,16 @@ public class ReportsController {
         }
 
         return ResponseEntity.ok().body(reportsService.isDailyLimitKept(userId, date));
+    }
+
+    @GetMapping("/report/nutrition_history/{userId}")
+    ResponseEntity<Object> getNutritionHistory(@PathVariable(name = "userId") UUID userId,
+                                            @RequestParam(name = "start") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate start,
+                                            @RequestParam(name = "end") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate end){
+        if (!userRepository.existsById(userId)) {
+            return ResponseEntity.badRequest().body("Пользователь не найден");
+        }
+
+        return ResponseEntity.ok().body(reportsService.getNutritionHistory(userId, start, end));
     }
 }

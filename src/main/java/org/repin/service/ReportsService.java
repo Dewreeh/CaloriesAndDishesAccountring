@@ -2,10 +2,10 @@ package org.repin.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import net.bytebuddy.asm.Advice;
 import org.repin.dto.report.DailyReportDto;
 import org.repin.dto.report.IsDailyLimitKeptDto;
 import org.repin.dto.report.MealIntakeReportDto;
+import org.repin.dto.report.NutritionHistoryDto;
 import org.repin.model.Dish;
 import org.repin.model.User;
 import org.repin.model.MealIntake;
@@ -15,7 +15,6 @@ import org.repin.repository.MealIntakeDishRepository;
 import org.repin.repository.MealIntakeRepository;
 import org.repin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,7 +25,7 @@ public class ReportsService {
 
     private final UserRepository userRepository;
     private final CaloriesService caloriesService;
-    private final DishRepository dishRepository;
+
     private final MealIntakeRepository mealIntakeRepository;
     private final MealIntakeDishRepository mealIntakeDishRepository;
 
@@ -38,11 +37,11 @@ public class ReportsService {
                       MealIntakeDishRepository mealIntakeDishRepository){
         this.userRepository = userRepository;
         this.caloriesService = caloriesService;
-        this.dishRepository = dishRepository;
         this.mealIntakeRepository = mealIntakeRepository;
         this.mealIntakeDishRepository = mealIntakeDishRepository;
     }
 
+    @Transactional
     public DailyReportDto getDailyReport(UUID userId, LocalDate date){
         if (!userRepository.existsById(userId)) {
             throw new EntityNotFoundException("Пользователь не найден");
@@ -52,26 +51,14 @@ public class ReportsService {
 
         //Все приёмы пищи пользователя за день
         List<MealIntake> dailyMeals = getMealsForDay(userId, date);
+        //Список из всех приёмов пищи за день c блюдами
+        List<MealIntakeReportDto> mealIntakeDtos = createMealIntakеListForDay(dailyMeals, date);
 
-        List<MealIntakeReportDto> mealIntakeDtos = new ArrayList<>();
-
-        int totalCalories = 0;
-
-        //проходим по всем приемам пищи, получаем блюда для каждого. Формируем Список всех приёмов за день  с блюдами в них
-        for(MealIntake meal: dailyMeals){
-            List<Dish> dishes = getDishesByMeal(meal);
-
-            MealIntakeReportDto mealIntake = new MealIntakeReportDto(meal.getId(), date, dishes);
-
-            mealIntakeDtos.add(mealIntake);
-
-            totalCalories += mealIntake.getTotalCalories();
-        }
 
         //устанавливаем значения в итоговую дто
         report.setDate(date);
         report.setMealIntakes(mealIntakeDtos);
-        report.setTotalCalories(totalCalories);
+        report.setTotalCalories(caloriesService.calculateTotalCalories(mealIntakeDtos));
 
         return report;
     }
@@ -94,9 +81,35 @@ public class ReportsService {
         return isDailyLimitKeptDto;
     }
 
+    public NutritionHistoryDto getNutritionHistory(UUID userId, LocalDate startDate, LocalDate endDate) {
+        NutritionHistoryDto historyDto = new NutritionHistoryDto();
+        historyDto.setStartDate(startDate);
+        historyDto.setEndDate(endDate);
+
+        Map<LocalDate, DailyReportDto> dateReportMap = new TreeMap<>();
+
+        LocalDate currentDate = startDate;
+        while (!currentDate.isAfter(endDate)) {
+            DailyReportDto dailyReport = getDailyReport(userId, currentDate);
+            dateReportMap.put(currentDate, dailyReport);
+            currentDate = currentDate.plusDays(1);
+        }
+
+        historyDto.setDateReportMap(dateReportMap);
+        return historyDto;
+    }
+
+
+    private List<MealIntakeReportDto> createMealIntakеListForDay(List<MealIntake> dailyMeals, LocalDate date) {
+        List<MealIntakeReportDto> mealIntakeDtos = new ArrayList<>();
+        for (MealIntake meal : dailyMeals) {
+            List<Dish> dishes = getDishesByMeal(meal);
+            mealIntakeDtos.add(new MealIntakeReportDto(meal.getId(), date, dishes));
+        }
+        return mealIntakeDtos;
+    }
 
     private List<MealIntake> getMealsForDay(UUID userId, LocalDate date){
-        //Все приёмы пищи пользователя за день
         return mealIntakeRepository.findAllByUserIdAndDate(userId, date);
     }
 
