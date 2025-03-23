@@ -48,7 +48,7 @@ public class AddEntitiesController {
                 dto.getWeight(),
                 dto.getHeight(),
                 dto.getGoal(),
-                caloriesService.countDailyCalories(dto));
+                caloriesService.countDailyCaloriesLimit(dto));
 
         return ResponseEntity.ok().body(userRepository.save(user));
     }

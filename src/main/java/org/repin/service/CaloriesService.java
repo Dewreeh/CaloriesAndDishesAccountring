@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class CaloriesService {
 
-    public Integer countDailyCalories(NewUserDto dto){
+    public Integer countDailyCaloriesLimit(NewUserDto dto){
         BigDecimal height = dto.getHeight();
         BigDecimal weight = dto.getWeight();
         BigDecimal age = BigDecimal.valueOf(dto.getAge());

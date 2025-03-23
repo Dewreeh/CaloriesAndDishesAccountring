@@ -116,8 +116,6 @@ public class ReportsService {
     private List<Dish> getDishesByMeal(MealIntake mealIntake){
         List<MealIntakeDish> mealsAndDishesMap = mealIntakeDishRepository.findAllByMealIntakeId(mealIntake.getId());
 
-        List<Dish> dishes = new ArrayList<>();
-
         return mealsAndDishesMap.stream()
                 .map(MealIntakeDish::getDish)
                 .toList();
