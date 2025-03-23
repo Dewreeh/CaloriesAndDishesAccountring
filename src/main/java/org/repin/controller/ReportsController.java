@@ -31,10 +31,17 @@ public class ReportsController {
     @GetMapping("/daily_report/{userId}")
     ResponseEntity<Object> getDailyReport(@PathVariable(name = "userId") UUID userId,
                                           @RequestParam(name = "date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date){
+
+        return ResponseEntity.ok().body(reportsService.getDailyReport(userId, date));
+    }
+
+    @GetMapping("/daily_report/is_limit_kept/{userId}")
+    ResponseEntity<Object> isDailyLimitKept(@PathVariable(name = "userId") UUID userId,
+                                          @RequestParam(name = "date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date){
         if (!userRepository.existsById(userId)) {
             return ResponseEntity.badRequest().body("Пользователь не найден");
         }
 
-        return ResponseEntity.ok().body(reportsService.getDailyReport(userId, date));
+        return ResponseEntity.ok().body(reportsService.isDailyLimitKept(userId, date));
     }
 }

@@ -14,6 +14,7 @@ import org.repin.repository.MealIntakeDishRepository;
 import org.repin.repository.MealIntakeRepository;
 import org.repin.repository.UserRepository;
 import org.repin.service.CaloriesService;
+import org.repin.service.MealIntakeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,19 +32,17 @@ public class AddEntitiesController {
     private final UserRepository userRepository;
     private final CaloriesService caloriesService;
     private final DishRepository dishRepository;
-    private final MealIntakeRepository mealIntakeRepository;
-    private final MealIntakeDishRepository mealIntakeDishRepository;
+    private final MealIntakeService mealIntakeService;
     @Autowired
     AddEntitiesController(UserRepository userRepository,
                    CaloriesService caloriesService,
                    DishRepository dishRepository,
-                   MealIntakeRepository mealIntakeRepository,
-                   MealIntakeDishRepository mealIntakeDishRepository){
+                   MealIntakeService mealIntakeService){
         this.userRepository = userRepository;
         this.caloriesService = caloriesService;
         this.dishRepository = dishRepository;
-        this.mealIntakeRepository = mealIntakeRepository;
-        this.mealIntakeDishRepository = mealIntakeDishRepository;
+        this.mealIntakeService = mealIntakeService;
+
     }
 
     @PostMapping("/user")
@@ -58,7 +57,7 @@ public class AddEntitiesController {
                 dto.getGoal(),
                 caloriesService.countDailyCalories(dto));
 
-        return ResponseEntity.ok().body(userRepository.save(user).getDailyCalories()); //возвращаем лимит калорий
+        return ResponseEntity.ok().body(userRepository.save(user));
     }
 
     @PostMapping("/dish")
@@ -80,25 +79,7 @@ public class AddEntitiesController {
     ResponseEntity<Object> addMealIntake(@RequestBody NewMealIntakeDto dto) {
         log.info("/add_meal_intake: {}", dto);
 
-        if (!userRepository.existsById(dto.getUserId())) {
-            return ResponseEntity.badRequest().body("Пользователь не найден");
-        }
-
-        final MealIntake mealIntake = mealIntakeRepository.save(new MealIntake(dto.getUserId(), dto.getDate()));
-
-        List<Dish> dishes = dishRepository.findAllById(dto.getDishes());
-
-        if (dishes.size() != dto.getDishes().size()) {
-            return ResponseEntity.badRequest().body("Одно или несколько блюд не найдены");
-        }
-
-        List<MealIntakeDish> intakeDishes = dishes.stream()
-                .map(dish -> new MealIntakeDish(mealIntake, dish))
-                .toList();
-
-        mealIntakeDishRepository.saveAll(intakeDishes);
-
-        return ResponseEntity.ok().body(mealIntake);
+        return ResponseEntity.ok().body(mealIntakeService.addMealIntake(dto));
     }
 
 }

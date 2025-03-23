@@ -1,9 +1,13 @@
 package org.repin.service;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import net.bytebuddy.asm.Advice;
 import org.repin.dto.report.DailyReportDto;
+import org.repin.dto.report.IsDailyLimitKeptDto;
 import org.repin.dto.report.MealIntakeReportDto;
 import org.repin.model.Dish;
+import org.repin.model.User;
 import org.repin.model.MealIntake;
 import org.repin.model.MealIntakeDish;
 import org.repin.repository.DishRepository;
@@ -11,13 +15,11 @@ import org.repin.repository.MealIntakeDishRepository;
 import org.repin.repository.MealIntakeRepository;
 import org.repin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ReportsService {
@@ -42,10 +44,14 @@ public class ReportsService {
     }
 
     public DailyReportDto getDailyReport(UUID userId, LocalDate date){
+        if (!userRepository.existsById(userId)) {
+            throw new EntityNotFoundException("Пользователь не найден");
+        }
+
         DailyReportDto report = new DailyReportDto();
 
         //Все приёмы пищи пользователя за день
-        List<MealIntake> dailyMeals = getMealsForToday(userId, date);
+        List<MealIntake> dailyMeals = getMealsForDay(userId, date);
 
         List<MealIntakeReportDto> mealIntakeDtos = new ArrayList<>();
 
@@ -55,7 +61,7 @@ public class ReportsService {
         for(MealIntake meal: dailyMeals){
             List<Dish> dishes = getDishesByMeal(meal);
 
-            MealIntakeReportDto mealIntake = new MealIntakeReportDto(meal.getId(), LocalDate.now(), dishes);
+            MealIntakeReportDto mealIntake = new MealIntakeReportDto(meal.getId(), date, dishes);
 
             mealIntakeDtos.add(mealIntake);
 
@@ -70,8 +76,26 @@ public class ReportsService {
         return report;
     }
 
+    public IsDailyLimitKeptDto isDailyLimitKept(UUID userId, LocalDate date){
+        IsDailyLimitKeptDto isDailyLimitKeptDto = new IsDailyLimitKeptDto();
 
-    private List<MealIntake> getMealsForToday(UUID userId, LocalDate date){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Пользователь не найден"));
+
+        DailyReportDto dailyReport = getDailyReport(userId, date);
+
+        Integer userCaloriesLimit = user.getDailyCalories(); //лимит калорий юзера
+
+        Integer caloriesForDay =  dailyReport.getTotalCalories(); //набранные калории на конкретный день
+
+        isDailyLimitKeptDto.setIsKept(caloriesForDay < userCaloriesLimit);
+        isDailyLimitKeptDto.setDifferenceFromLimit(Math.abs(caloriesForDay - userCaloriesLimit)); //считаем отклонение от лимита
+
+        return isDailyLimitKeptDto;
+    }
+
+
+    private List<MealIntake> getMealsForDay(UUID userId, LocalDate date){
         //Все приёмы пищи пользователя за день
         return mealIntakeRepository.findAllByUserIdAndDate(userId, date);
     }
@@ -81,10 +105,8 @@ public class ReportsService {
 
         List<Dish> dishes = new ArrayList<>();
 
-        for(MealIntakeDish item: mealsAndDishesMap){
-            dishes.add(item.getDish());
-        }
-        return dishes;
+        return mealsAndDishesMap.stream()
+                .map(MealIntakeDish::getDish)
+                .toList();
     }
-
 }

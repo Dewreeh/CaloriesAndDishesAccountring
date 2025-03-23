@@ -31,4 +31,6 @@ public class User {
         this.goal = goal;
         this.dailyCalories = dailyLimitOfCalories;
     }
+
+    public User(){}
 }
