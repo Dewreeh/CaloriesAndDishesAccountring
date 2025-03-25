@@ -5,7 +5,7 @@
 git clone https://github.com/Dewreeh/CaloriesAndDishesAccountring.git
 ```
 
-## Далее самый простой вариант:
+## Далее самый простой вариант (делать в основной директории проекта):
 ```sh
 docker compose build
 docker compose up
