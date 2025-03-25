@@ -1,4 +1,5 @@
 package org.repin.controller;
+import org.apache.coyote.BadRequestException;
 import org.repin.repository.UserRepository;
 import org.repin.service.ReportsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class ReportsController {
 
     @GetMapping("/report/is_limit_kept/{userId}")
     ResponseEntity<Object> isDailyLimitKept(@PathVariable(name = "userId") UUID userId,
-                                          @RequestParam(name = "date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date){
+                                            @RequestParam(name = "date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date){
         if (!userRepository.existsById(userId)) {
             return ResponseEntity.badRequest().body("Пользователь не найден");
         }
@@ -41,8 +42,8 @@ public class ReportsController {
 
     @GetMapping("/report/nutrition_history/{userId}")
     ResponseEntity<Object> getNutritionHistory(@PathVariable(name = "userId") UUID userId,
-                                            @RequestParam(name = "start") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate start,
-                                            @RequestParam(name = "end") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate end){
+                                               @RequestParam(name = "start") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate start,
+                                               @RequestParam(name = "end") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate end) throws BadRequestException {
         if (!userRepository.existsById(userId)) {
             return ResponseEntity.badRequest().body("Пользователь не найден");
         }

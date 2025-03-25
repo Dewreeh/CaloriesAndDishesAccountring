@@ -2,6 +2,7 @@ package org.repin.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.apache.coyote.BadRequestException;
 import org.repin.dto.report.DailyReportDto;
 import org.repin.dto.report.IsDailyLimitKeptDto;
 import org.repin.dto.report.MealIntakeReportDto;
@@ -81,7 +82,11 @@ public class ReportsService {
         return isDailyLimitKeptDto;
     }
 
-    public NutritionHistoryDto getNutritionHistory(UUID userId, LocalDate startDate, LocalDate endDate) {
+    public NutritionHistoryDto getNutritionHistory(UUID userId, LocalDate startDate, LocalDate endDate) throws BadRequestException {
+        if(endDate.getDayOfYear() - startDate.getDayOfYear() > 31) {
+            throw new BadRequestException("Максимальный промежуток - 31 день");
+        }
+
         NutritionHistoryDto historyDto = new NutritionHistoryDto();
         historyDto.setStartDate(startDate);
         historyDto.setEndDate(endDate);
@@ -120,4 +125,5 @@ public class ReportsService {
                 .map(MealIntakeDish::getDish)
                 .toList();
     }
+
 }

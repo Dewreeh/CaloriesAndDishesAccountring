@@ -15,5 +15,7 @@ public class NutritionHistoryDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
+    private Integer DaysWhenLimitKeptCount;
+
     private Map<LocalDate, DailyReportDto> dateReportMap;
 }

@@ -1,5 +1,6 @@
 package org.repin.dto;
 
+import jakarta.persistence.Entity;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.repin.enums.Goals;
@@ -14,6 +15,7 @@ public class NewUserDto {
     private String name;
 
     @NotBlank(message = "Email обязателен")
+    @Email
     private String email;
 
     @NotNull(message = "Возраст обязателен")
