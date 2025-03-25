@@ -12,7 +12,7 @@ docker compose up
 ```
 Приложение и БД запустятся на 8080 и 5432 портах соответственно.  
 В `docker-compose.yml` я добавил postgres, который поднимается с нужной структурой БД и тестовыми данными.  
-Так что можно их потестить Postman-коллекцией.
+Так что можно их потестить Postman-коллекцией - https://drive.google.com/file/d/1SyL1E-EC-v962rD-jgI0iYl_KP3W7A5Z/view?usp=drive_link.
 
 ## Если не через Docker, то в `application.properties` поменять:
 ### Было:
