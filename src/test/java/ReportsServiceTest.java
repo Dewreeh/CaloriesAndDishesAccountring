@@ -21,7 +21,7 @@ import java.util.UUID;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
@@ -76,6 +76,31 @@ public class ReportsServiceTest {
         assertNotNull(report);
         assertEquals(1500, report.getTotalCalories());
     }
+
+    @Test
+    void testGetDailyReport_UserHasMealsButnoDishes() {
+        UUID userId = UUID.randomUUID();
+        LocalDate date = LocalDate.now();
+
+        User user = new User();
+        user.setDailyCalories(2000);
+        MealIntake mealIntake = new MealIntake();
+        mealIntake.setId(UUID.randomUUID());
+
+        when(userRepository.existsById(userId)).thenReturn(true);
+        when(mealIntakeRepository.findAllByUserIdAndDate(userId, date)).thenReturn(Collections.singletonList(mealIntake));
+        when(mealIntakeDishRepository.findAllByMealIntakeId(mealIntake.getId())).thenReturn(Collections.emptyList());
+        when(caloriesService.calculateTotalCalories(anyList())).thenReturn(0);
+
+        DailyReportDto report = reportsService.getDailyReport(userId, date);
+
+        assertNotNull(report);
+        assertEquals(0, report.getTotalCalories());
+        assertEquals(1, report.getMealIntakes().size());
+        assertTrue(report.getMealIntakes().get(0).getDishes().isEmpty());
+    }
+
+
     //лимит не превышен
     @Test
     void testIsDailyLimitKept_LimitKept() {
@@ -96,7 +121,7 @@ public class ReportsServiceTest {
         IsDailyLimitKeptDto result = reportsService.isDailyLimitKept(userId, date);
 
         assertNotNull(result);
-        assertTrue(result.getIsKept());
+        assert(result.getIsKept());
         assertEquals(200, result.getDifferenceFromLimit());
     }
 
@@ -122,6 +147,37 @@ public class ReportsServiceTest {
         assertNotNull(result);
         assertFalse(result.getIsKept());
         assertEquals(200, result.getDifferenceFromLimit());
+    }
+
+
+    @Test
+    void testIsDailyLimitKept_LimitIdeal() {
+        UUID userId = UUID.randomUUID();
+        LocalDate date = LocalDate.now();
+
+        User user = new User();
+        user.setDailyCalories(2000);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(userRepository.existsById(userId)).thenReturn(true);
+
+        when(mealIntakeRepository.findAllByUserIdAndDate(userId, date)).thenReturn(Collections.emptyList());
+        when(caloriesService.calculateTotalCalories(anyList())).thenReturn(2000);
+
+        IsDailyLimitKeptDto result = reportsService.isDailyLimitKept(userId, date);
+
+        assertNotNull(result);
+        assertFalse(result.getIsKept());
+        assertEquals(0, result.getDifferenceFromLimit());
+    }
+    @Test
+    void testIsDailyLimitKept_UserNotFound_ShouldThrowEntityNotFoundException() {
+        UUID userId = UUID.randomUUID();
+        LocalDate date = LocalDate.now();
+
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> reportsService.isDailyLimitKept(userId, date));
     }
 
 
