@@ -17,7 +17,7 @@ docker compose up
 ## Если не через Docker, то в `application.properties` поменять:
 ### Было:
 ```properties
-spring.datasource.url=jdbc:postgresql://db:5432/{ваше название БД}
+spring.datasource.url=jdbc:postgresql://db:5432/CaloriesAndDishes
 ```
 ### На:
 ```properties
